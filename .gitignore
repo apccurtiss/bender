@@ -1,0 +1,5 @@
+node_modules
+bin
+nohup.out
+.DS_Store*
+.hubot_history
