@@ -7,9 +7,39 @@
 #   Uncomment the ones you want to try and experiment with.
 #
 #   These are from the scripting documentation: https://github.com/github/hubot/blob/master/docs/scripting.md
+fs = require "fs"
 
 module.exports = (robot) ->
-  #  slackbot_insults = [""]
+  robot.respond /save ([a-zA-Z]*)'?s quote:? (.*)/i, (res) ->
+    # Get current quote store
+    quotes = []
+    try
+      quotes = JSON.parse(fs.readFileSync 'quotes.json', 'utf8')
+    catch e
+  
+    quotes.push { 
+      author: res.match[1],
+      date: new Date,
+      quote: res.match[2],
+    }
+
+    # Save current quote store
+    fs.writeFile "quotes.json", JSON.stringify(quotes), (error) ->
+      console.error("Error writing file", error) if error
+    res.send 'Saved!'
+
+  robot.respond /show quotes/i, (res) ->
+    try
+      quotes = JSON.parse(fs.readFileSync 'quotes.json', 'utf8')
+      if quotes.length > 0
+        rep = ""
+        for quote in quotes
+          rep += "#{quote.author}: #{quote.quote}\n"
+        res.send rep
+      else
+        res.send 'There are no quotes!'
+    catch e
+      res.send 'There are no quotes!'
   #  robot.hear /.*/i, (res) ->
   #      name = res.envelope.user.real_name
   #      console.log(name)
