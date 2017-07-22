@@ -1,6 +1,3 @@
-node_modules
-bin
+__pycache__
 nohup.out
-run.sh
-.DS_Store*
-.hubot_history
+slackbot_settings.py
