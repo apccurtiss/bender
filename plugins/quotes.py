@@ -6,7 +6,7 @@ from datetime import datetime
 from slackbot.bot import listen_to
 from slackbot.bot import respond_to
 
-OUTFILE = 'quotes.json'
+OUTFILE = './data/quotes.json'
 
 # Read in persistant quotes list
 try:

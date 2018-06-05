@@ -1,1 +1,1 @@
-nohup python3 slackbot.py
+nohup python3 bender.py
